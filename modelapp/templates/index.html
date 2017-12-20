@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hello Bulma!</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.min.css">
+</head>
+
+<body>
+
+  <section class="hero is-info is-fullheight">
+
+    <div class="hero-body">
+      <div class="container has-text-centered">
+        <p class="title">
+          {% if name %} Logged in as {{name}} {% else %} Indexpage {% endif %}
+
+        </p>
+        <div class="columns">
+          <div class="column"></div>
+          <div class="column" style="width:30em;">
+
+            {% if name %}
+            <a href="/logout" class="button is-success">
+              Logout
+            </a>
+            {% else %}
+            <a href="/login" class="button is-success">
+              Login
+            </a>
+            <a href="/register" class="button is-success">
+              Register
+            </a>
+            {% endif %}
+            <br><br>
+          {% if get_flashed_messages() %}
+          <article class="message is-info">
+            <div class="message-body">
+              {% for msg in get_flashed_messages() %} 
+                {{ msg }} 
+              {% endfor %}
+            </div>
+          </article>
+          {% endif %}
+          </div>
+          <div class="column"></div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+</body>
+
+</html>
