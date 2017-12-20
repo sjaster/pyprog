@@ -22,14 +22,25 @@
 					<div class="column"></div>
 					<div class="column" style="width:30em;">
 						<form action="/login" method="post">
+
 							<div class="field">
 								<p class="control has-icons-left">
-									<input class="input" type="username" placeholder="Username" name="username">
+									<input class="input" type="username" placeholder="🦄  User" name="username">
 									<span class="icon is-small is-left">
-										<i class="fa fa-envelope"></i>
+										<i class="fa fa-user"></i>
 									</span>
 								</p>
 							</div>
+
+							<div class="field">
+								<p class="control has-icons-left">
+									<input class="input" type="password" placeholder="SuperSecure™️" name="password">
+									<span class="icon is-small is-left">
+										<i class="fa fa-lock"></i>
+									</span>
+								</p>
+							</div>
+
 							<div class="field">
 								<p class="control">
 									<button class="button is-success" type="submit">
@@ -37,6 +48,9 @@
 									</button>
 								</p>
 							</div>
+
+							{% if error %} {{error}} {% endif %}
+
 						</form>
 
 					</div>
