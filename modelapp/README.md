@@ -3,7 +3,7 @@
 ### Installation
 
 ```python
-python3 -m pip install flask sqlalchemy
+python3 -m pip install flask flask-sqlalchemy
 ```
 
 ### Run
