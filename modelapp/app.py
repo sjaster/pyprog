@@ -21,7 +21,7 @@ def index():
 
 @app.route('/login', methods=['POST'])
 def login_action():
-    if user.checkUser(request.form['username'], request.form['password']):
+    if user.login(request.form['username'], request.form['password']):
         session['username'] = request.form['username']
         flash('Login successfull')
         return redirect(url_for('index'))
@@ -43,7 +43,7 @@ def logout():
 
 @app.route('/register', methods=['POST'])
 def register_action():
-    if not user.addUser(request.form['username'], request.form['password']):
+    if not user.register(request.form['username'], request.form['password']):
         flash('Registration failed')
         return redirect(url_for('register'))
     
