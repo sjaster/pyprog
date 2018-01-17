@@ -65,12 +65,17 @@ def getVideoFromUrl(url):
 def go():
     global FFMPEG
 
+    # macOS
     if sys.platform == 'darwin':
         FFMPEG = './ffmpeg/macOS/ffmpeg'
+    # Windows
     if sys.platform == 'win32':
         FFMPEG = r'.\ffmpeg\win\32\bin\ffmpeg.exe'
     if sys.platform == 'win64':
         FFMPEG = r'.\ffmpeg\win\64\bin\ffmpeg.exe'
+    # Linux
+    if sys.platform == 'linux':
+        FFMPEG = r'./ffmpeg/linux/64/ffmpeg'
 
     if FFMPEG is None:
         print('Not Comatible')
