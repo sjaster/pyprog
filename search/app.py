@@ -6,7 +6,8 @@ from time import time
 import os
 import mmap
 
-parser = ArgumentParser(prog='pySyrch')
+parser = ArgumentParser(
+    prog='pySyrch', epilog='Example: python3 app.py -s ./ -t "myText"')
 parser.add_argument('-s', '--search', nargs=1, dest='root',  metavar='<folder-to-search>', required=True,
                     help='Directory in which to search')
 parser.add_argument('-t', '--for', required=True, metavar='myText', dest='needle',
