@@ -1,9 +1,0 @@
-<!DOCTYPE html>
-{% if error %}
-{{error}}
-{% endif %}
-<form method='post' action="{{ url_for('login') }}">
-	<input name="user" type="text" placeholder="Username"/> <br>
-	<input name="passwd" type="password" placeholder="Password"/> <br>
-	<button name="submit">Submit</button>
-</form>
