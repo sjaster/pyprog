@@ -1,24 +1,22 @@
-__version__ = '0.1'
-
-from sys import argv
-from argparse import ArgumentParser
-from time import time
+import sys
 import os
-import mmap
-
-parser = ArgumentParser(
-    prog='pySyrch', epilog='Example: python3 app.py -s ./ -t "myText"')
-parser.add_argument('-s', '--search', nargs=1, dest='root',  metavar='<folder-to-search>', required=True,
-                    help='Directory in which to search')
-parser.add_argument('-t', '--for', required=True, metavar='myText', dest='needle',
-                    help='What you are searching for')
+from time import time
 
 
-def inFileMemoryEfficient(text, file):
+def isTextInFile(needle='', file=None):
+    # TODO Check if file exists
+    if needle is '' or file is None:
+        return False
+
     try:
-        with open(file, 'rb') as f:
-            with mmap.mmap(f.fileno(), 0, access=mmap.ACCESS_READ) as s:
-                if s.find(text.encode()) != -1:
+        if os.path.splitext(file) is 'pdf':
+            pass
+        elif os.path.splitext(file) is 'mp3':
+            pass
+        else:
+            with open(file, mode='r') as f:
+                body = f.read()
+                if needle in body:
                     return True
                 else:
                     return False
@@ -26,47 +24,37 @@ def inFileMemoryEfficient(text, file):
         return False
 
 
-def inFile(text, file):
-    try:
-        with open(file, 'rb') as f:
-            if text.encode() in f.read():
-                return True
-            else:
-                return False
-    except:
-        return False
+def main():
 
+    root_directory = sys.argv[1]
+    root_directory_absolute = os.path.abspath(root_directory)
+    needle = sys.argv[2]
 
-def search(dir, text):
-
-    print('Searching...\n')
-
-    results = []
-    root_len = len(dir.split(os.sep))
+    print('Starting search... \n')
     start_time = time()
 
-    for root, dirs, files in os.walk(dir):
+    results = []
 
+    # The Search
+    for root, dirs, files in os.walk(root_directory_absolute):
         for file in files:
-            path = os.path.join(root, file)
-            if inFile(text, os.path.abspath(path)):
-                results.append((root, file))
+            filename = os.path.join(root, file)
+            if isTextInFile(needle=needle, file=filename):
+                results.append(filename)
 
+    # Print results
+    root_length = len(os.path.dirname(root_directory_absolute)) + 1
     for result in results:
-        path = result[0].split(os.sep)
-        print((len(path) - root_len) * '---', result[1])
-    print('\nDone in: {}s'.format(round(time() - start_time, 1)))
+        print(result[root_length:])
+
+    end_time = time()
+    print('\n Found: {} files in: {}s'.format(
+        len(results),
+        round(end_time - start_time, 1)
+    ))
 
 
-def init():
-    opt = parser.parse_args(argv[1:])
-
-    root = os.path.abspath(opt.root[0])
-
-    if not os.path.isdir(root):
-        raise NotADirectoryError('{}'.format(root))
-
-    search(root, opt.needle)
-
-
-init()
+try:
+    main()
+except KeyboardInterrupt:
+    pass
